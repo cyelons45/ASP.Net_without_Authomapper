@@ -1,0 +1,61 @@
+﻿@model Sibly.ViewModels.MovieFormViewModel
+@{
+    ViewBag.Title = "MovieForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>@Model.Title</h2>
+
+
+
+@using (Html.BeginForm("Save", "Movies", FormMethod.Post))
+{
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </fieldset>
+    </div>
+
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.ReleaseDate)
+            @Html.TextBoxFor(m => m.ReleaseDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ReleaseDate)
+        </fieldset>
+    </div>
+
+
+
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.GenreId)
+            @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "GenreId", "Name"), "Select Genre", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.GenreId)
+        </fieldset>
+    </div>
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.NumberInStock)
+            @Html.TextBoxFor(m => m.NumberInStock, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.NumberInStock)
+        </fieldset>
+    </div>
+
+    @Html.HiddenFor(m => m.MovieId);
+     @Html.AntiForgeryToken()
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-primary" })
+
+    </div>
+
+
+}
+
+@section scripts
+    {
+
+    @Scripts.Render("~/bundles/jqueryval");
+}

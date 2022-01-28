@@ -1,0 +1,65 @@
+﻿@model Sibly.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    <h2>@Model.Title</h2>
+
+
+
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post))
+{
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </fieldset>
+    </div>
+
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.Birthdate)
+            @Html.TextBoxFor(m => m.Birthdate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Birthdate)
+        </fieldset>
+    </div>
+
+
+
+    <div class="form-group">
+        <fieldset>
+            @Html.LabelFor(m => m.MembershipTypeId)
+            @Html.DropDownListFor(m => m.MembershipTypeId, new SelectList(Model.MembershipTypes, "MembershipTypeId", "Name"), "Select Membership Type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.MembershipTypeId)
+        </fieldset>
+    </div>
+
+
+    <div class="form-group">
+        <fieldset>
+            <label>
+                @Html.CheckBoxFor(m => m.isSubscribedToNewsletter) Have you subscribed to Newsletter?
+            </label>
+        </fieldset>
+    </div>
+    @Html.HiddenFor(m => m.CustomerId);
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-primary" })
+    </div>
+
+
+}
+
+@section scripts
+    {
+
+    @Scripts.Render("~/bundles/jqueryval");
+}
+
+

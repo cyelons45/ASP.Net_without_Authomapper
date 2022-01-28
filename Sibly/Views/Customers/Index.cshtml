@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Sibly.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@*<button type="button" class="btn btn-primary" >Add Customer</button>*@
+@Html.ActionLink("Add Customer", "New", "Customers", null, new { @class = "btn btn-primary btn-lg" })
+
+
+@if (!Model.Any())
+{
+    <p>We don't have any customers yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover table_space">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@customer.Name, "Edit", "Customers", new { Id = @customer.CustomerId }, null)</td>
+                    <td>@customer.MembershipType.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
